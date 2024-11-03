@@ -8,3 +8,6 @@ version '1.0.0'
 client_scripts {
     'tow_script.lua'
 }
+files {
+    'config.cfg'
+}
