@@ -33,6 +33,7 @@ This script allows players to attach and detach vehicles to tow trucks by typing
    - Add the following line to ensure the script loads when the server starts:
      ```
      start tow_script
+     add_ace group.admin towtruck.use allow
      ```
 
 5. **Restart Your Server**:
