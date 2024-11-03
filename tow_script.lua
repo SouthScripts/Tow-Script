@@ -1,11 +1,29 @@
--- Client-side script
-
 local isTowing = false
 local towedVehicle = nil
+
+-- Load the config
+Config = {}
+
+function LoadConfig()
+    local file = LoadResourceFile(GetCurrentResourceName(), "config.cfg")
+    if file then
+        Config = load("return " .. file)()
+    end
+end
+
+LoadConfig()
 
 RegisterCommand("tow", function()
     local playerPed = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(playerPed, true)
+    
+    -- Check if player has permission
+    if not IsPlayerAceAllowed(PlayerId(), Config.RequiredPermission) then
+        TriggerEvent("chat:addMessage", {
+            args = { "^1You do not have permission to use this command." }
+        })
+        return
+    end
     
     -- Check if player is in a tow truck
     if not IsVehicleTowTruck(vehicle) then
@@ -35,7 +53,12 @@ end, false)
 
 function IsVehicleTowTruck(vehicle)
     local model = GetEntityModel(vehicle)
-    return model == GetHashKey("flatbed") or model == GetHashKey("towtruck") or model == GetHashKey("towtruck2")
+    for _, towTruckModel in ipairs(Config.TowTruckModels) do
+        if model == GetHashKey(towTruckModel) then
+            return true
+        end
+    end
+    return false
 end
 
 function AttachVehicleToTowTruck(towTruck, vehicle)
