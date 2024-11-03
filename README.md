@@ -75,4 +75,6 @@ This script allows players to attach and detach vehicles to tow trucks by typing
 **Discord:** https://discord.gg/yTVVmEm9p7
 **Documentation:** https://south-scripts.gitbook.io/south-scripts-documentation/
 
+---
+
 By following these steps, you should be able to successfully install and use the tow script on your FiveM server!
